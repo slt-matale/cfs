@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>SLTMobitel Feedback Chatbot</title>
+    
+
+    <link rel="stylesheet" href="assets/css/style.css">
+</head>
+
+<body>
+
+<div class="chat-container">
+
+    <div class="header">
+        <h2>🤖 SLTMobitel</h2>
+        <p>Customer Feedback Assistant</p><br>
+        <a href="pages/login.html" class="admin-login-btn">
+    🔐 Admin Login
+</a>
+    </div>
+
+    <div id="chatBox" class="chat-box"></div>
+
+    <div class="input-area" id="inputArea">
+
+        <input
+            type="text"
+            id="userInput"
+            placeholder="Type your answer..."
+        >
+
+        <button
+            class="send-button"
+            onclick="sendAnswer()">
+            Send
+        </button>
+
+    </div>
+
+</div>
+
+
+<script src="assets/js/config.js"></script>
+<script src="assets/js/script.js"></script>
+
+</body>
+</html>

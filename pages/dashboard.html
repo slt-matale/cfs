@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>SLTMobitel | AI Customer Experience Dashboard</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
+
+<link rel="stylesheet" href="../assets/css/dashboard.css">
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="logo">
+            SLT
+        </div>
+
+        <div>
+
+            <h1>
+                AI Customer Experience Dashboard
+            </h1>
+
+            <p>
+                SLTMobitel | Customer Feedback Analytics
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="header-actions">
+
+    <button type="button" class="refresh-btn" id="refreshBtn">
+        🔄 Refresh
+    </button>
+
+    <button type="button" class="logout-btn" id="logoutBtn">
+        🚪 Logout
+    </button>
+
+</div>
+
+</header>
+
+
+<main class="container">
+
+<div class="page-title">
+
+    <h2>
+        Customer Experience Overview
+    </h2>
+
+    <p>
+        Monitor customer satisfaction, sentiment and service quality.
+    </p>
+
+</div>
+
+
+<div id="errorMessage"></div>
+
+
+
+<section class="report-actions">
+
+    <div class="report-info">
+
+        <h3>
+            Reports &amp; Data
+        </h3>
+
+        <p>
+            Generate professional reports from the latest customer feedback records.
+        </p>
+
+    </div>
+
+    <div class="report-buttons">
+
+        <button
+            class="btn btn-primary"
+            onclick="downloadAISummaryWord()">
+
+            📄 Download AI Summary Report
+
+        </button>
+
+        <button
+            class="btn btn-green"
+            onclick="downloadFeedbackWord()">
+
+            🗄️ Download Customer Feedback Data
+
+        </button>
+
+    </div>
+
+</section>
+
+<section class="cards">
+
+    <div class="card">
+
+        <h3>
+            Total Feedback
+        </h3>
+
+        <div
+            class="card-value"
+            id="totalFeedback">
+
+            0
+
+        </div>
+
+        <small>
+            All submitted responses
+        </small>
+
+    </div>
+
+
+    <div class="card positive">
+
+        <h3>
+            Positive Feedback
+        </h3>
+
+        <div
+            class="card-value"
+            id="positiveFeedback">
+
+            0
+
+        </div>
+
+        <small id="positivePercent">
+            0%
+        </small>
+
+    </div>
+
+
+    <div class="card neutral">
+
+        <h3>
+            Neutral Feedback
+        </h3>
+
+        <div
+            class="card-value"
+            id="neutralFeedback">
+
+            0
+
+        </div>
+
+        <small id="neutralPercent">
+            0%
+        </small>
+
+    </div>
+
+
+    <div class="card negative">
+
+        <h3>
+            Negative Feedback
+        </h3>
+
+        <div
+            class="card-value"
+            id="negativeFeedback">
+
+            0
+
+        </div>
+
+        <small id="negativePercent">
+            0%
+        </small>
+
+    </div>
+
+</section>
+
+<section class="grid">
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                Sentiment Analysis
+            </h2>
+
+            <span>
+                Customer sentiment
+            </span>
+
+        </div>
+
+        <div class="chart-box">
+
+            <canvas id="sentimentChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                Service Used
+            </h2>
+
+            <span>
+                SLT / Mobitel
+            </span>
+
+        </div>
+
+        <div class="chart-box">
+
+            <canvas id="serviceChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                Waiting Time Rating
+            </h2>
+
+            <span>
+                Customer rating
+            </span>
+
+        </div>
+
+        <div class="chart-box">
+
+            <canvas id="waitingChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                Staff Rating
+            </h2>
+
+            <span>
+                Service staff
+            </span>
+
+        </div>
+
+        <div class="chart-box">
+
+            <canvas id="staffChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                Office Environment
+            </h2>
+
+            <span>
+                Customer rating
+            </span>
+
+        </div>
+
+        <div class="chart-box">
+
+            <canvas id="officeChart"></canvas>
+
+        </div>
+
+    </div>
+
+    <div class="panel">
+
+        <div class="panel-header">
+
+            <h2>
+                Feedback Trend
+            </h2>
+
+            <span>
+                Weekly
+            </span>
+
+        </div>
+
+        <div class="chart-box">
+
+            <canvas id="weeklyChart"></canvas>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="ai-report">
+
+    <div class="report-heading">
+
+        <h2>
+            🤖 AI Customer Feedback Summary
+        </h2>
+
+        <p>
+            SLTMobitel Customer Experience
+        </p>
+
+        <div
+            class="report-date"
+            id="reportDate">
+
+            Report Generated: --
+
+        </div>
+
+    </div>
+
+    <h3 class="section-title">
+        1. Feedback Overview
+    </h3>
+
+    <div
+        class="summary-text"
+        id="overviewText">
+
+        Loading feedback overview...
+
+    </div>
+
+    <h3 class="section-title">
+        2. Sentiment Analysis
+    </h3>
+
+    <div id="sentimentPercentages">
+
+        Loading sentiment analysis...
+
+    </div>
+
+    <h3 class="section-title">
+        3. Service Summary
+    </h3>
+
+    <div
+        class="summary-text"
+        id="serviceSummary">
+
+        Loading service summary...
+
+    </div>
+
+    <h3 class="section-title">
+        4. Customer Experience Ratings
+    </h3>
+
+    <div
+        class="summary-text"
+        id="ratingSummary">
+
+        Loading ratings...
+
+    </div>
+
+    <h3 class="section-title">
+        5. Overall Summary
+    </h3>
+
+    <div
+        class="summary-text"
+        id="overallSummary">
+
+        Loading overall summary...
+
+    </div>
+
+    <h3 class="section-title">
+        6. Key Findings
+    </h3>
+
+    <ul
+        class="findings"
+        id="keyFindings">
+
+        <li>
+            Loading key findings...
+        </li>
+
+    </ul>
+
+    <h3 class="section-title">
+        7. Customer Comments
+    </h3>
+
+    <div id="summaryComments">
+
+        Loading comments...
+
+    </div>
+
+</section>
+
+<section class="panel">
+
+    <div class="panel-header">
+
+        <h2>
+            🗄️ Customer Feedback Data
+        </h2>
+
+        <span id="recordCount">
+            0 records
+        </span>
+
+    </div>
+
+
+    <div class="table-wrapper">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>ID</th>
+
+                    <th>Service</th>
+
+                    <th>Phone</th>
+
+                    <th>Waiting</th>
+
+                    <th>Staff</th>
+
+                    <th>Office</th>
+
+                    <th>Parking</th>
+
+                    <th>Comment</th>
+
+                    <th>Sentiment</th>
+
+                    <th>Created At</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="feedbackTableBody">
+
+                <tr>
+
+                    <td colspan="10">
+                        Loading customer feedback...
+                    </td>
+
+                </tr>
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<div class="footer">
+
+    SLTMobitel AI Customer Feedback Analytics System
+
+</div>
+
+</main>
+
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/dashboard.js"></script>
+
+</body>
+
+</html>
