@@ -345,7 +345,7 @@ async function finishChat() {
 
 
     addBotMessage(
-        '<i data-lucide="loader" style="width:16px; height:16px; vertical-align:middle; margin-right:4px;"></i> Saving your feedback...'
+        '<i data-lucide="loader-2" class="spin" style="width:16px; height:16px; vertical-align:middle; margin-right:4px;"></i> Saving your feedback...'
     );
 
 
@@ -439,7 +439,7 @@ async function finishChat() {
         setTimeout(() => {
 
             addBotMessage(
-                '<i data-lucide="refresh-cw" style="width:16px; height:16px; vertical-align:middle; margin-right:4px;"></i> Starting a new feedback session...'
+                '<i data-lucide="loader-2" class="spin" style="width:16px; height:16px; vertical-align:middle; margin-right:4px;"></i> Starting a new feedback session...'
             );
 
         }, 1500);

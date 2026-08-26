@@ -1064,13 +1064,9 @@ function createSentimentChart(
                             ],
 
                             backgroundColor: [
-
-                                "#198754",
-
-                                "#f0ad4e",
-
-                                "#dc3545"
-
+                                "#50af49",
+                                "#0b96d7",
+                                "#004b87"
                             ],
 
                             borderWidth:
@@ -1091,14 +1087,14 @@ function createSentimentChart(
                         false,
 
                     plugins: {
-
                         legend: {
-
-                            position:
-                                "bottom"
-
+                            position: "bottom"
+                        },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            cornerRadius: 8,
+                            padding: 12
                         }
-
                     }
 
                 }
@@ -1160,7 +1156,7 @@ function createBarChart(
                                 data,
 
                             backgroundColor:
-                                "#005baa",
+                                "#004b87",
 
                             borderRadius:
                                 4
@@ -1198,14 +1194,14 @@ function createBarChart(
                     },
 
                     plugins: {
-
                         legend: {
-
-                            display:
-                                false
-
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            cornerRadius: 8,
+                            padding: 12
                         }
-
                     }
 
                 }
@@ -1285,10 +1281,10 @@ function createWeeklyChart(
                                 values,
 
                             borderColor:
-                                "#005baa",
+                                "#004b87",
 
                             backgroundColor:
-                                "rgba(0,91,170,0.08)",
+                                "rgba(0, 75, 135, 0.08)",
 
                             fill:
                                 true,
@@ -1332,6 +1328,13 @@ function createWeeklyChart(
 
                         }
 
+                    },
+                    plugins: {
+                        tooltip: {
+                            backgroundColor: '#1e293b',
+                            cornerRadius: 8,
+                            padding: 12
+                        }
                     }
 
                 }

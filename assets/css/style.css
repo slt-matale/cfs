@@ -33,6 +33,16 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            animation: chatEntrance 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            opacity: 0;
+            transform: translateY(20px);
+        }
+
+        @keyframes chatEntrance {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .header {
@@ -45,6 +55,7 @@
         .header h2 {
             margin: 0;
             font-size: 22px;
+            font-weight: 700;
         }
 
         .header p {
@@ -240,3 +251,25 @@
         }
 
 
+/* Scrollbar */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: var(--brand-primary);
+}
+.spin {
+    animation: spin 1s linear infinite;
+}
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
