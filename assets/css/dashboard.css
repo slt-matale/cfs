@@ -3,6 +3,8 @@
     --brand-primary-hover: #003666;
     --brand-secondary: #0b96d7;
     --brand-accent: #50af49;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
 }
 
 * {
@@ -12,14 +14,9 @@
 }
 
 body {
-    font-family:
-        "Segoe UI",
-        Arial,
-        Helvetica,
-        sans-serif;
-
+    font-family: 'Outfit', sans-serif;
     background: #f4f7fb;
-    color: #1e293b;
+    color: var(--text-main);
 }
 
 
@@ -118,22 +115,24 @@ body {
 
 .btn-primary {
     background: var(--brand-primary);
-
     color: white;
 }
 
 .btn-primary:hover {
     background: var(--brand-primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .btn-green {
-    background: #198754;
-
+    background: var(--brand-accent);
     color: white;
 }
 
 .btn-green:hover {
-    background: #146c43;
+    background: #429d3c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .btn-light {
@@ -288,31 +287,15 @@ body {
 
 .report-actions {
     background: white;
-
-    border:
-        1px solid #dce5ee;
-
-    border-radius: 10px;
-
-    padding: 18px;
-
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
     margin-bottom: 25px;
-
     display: flex;
-
     align-items: center;
-
     justify-content: space-between;
-
     gap: 15px;
-
-    box-shadow:
-        0 2px 8px rgba(
-            0,
-            0,
-            0,
-            0.04
-        );
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
 
 .report-info h3 {
@@ -350,53 +333,33 @@ body {
 
 .card {
     background: white;
-
-    border:
-        1px solid #dce5ee;
-
-    border-radius: 10px;
-
-    padding: 21px;
-
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
     position: relative;
-
     overflow: hidden;
-
-    box-shadow:
-        0 2px 8px rgba(
-            0,
-            0,
-            0,
-            0.04
-        );
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border-left: 4px solid var(--brand-primary);
+}
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 40px rgba(0, 0, 0, 0.08);
 }
 
-.card::before {
-    content: "";
-
-    position: absolute;
-
-    left: 0;
-
-    top: 0;
-
-    bottom: 0;
-
-    width: 4px;
-
-    background: var(--brand-primary);
+.card.positive {
+    border-left-color: #198754;
+    background: linear-gradient(90deg, #f2fcf5, white);
 }
 
-.card.positive::before {
-    background: #198754;
+.card.neutral {
+    border-left-color: #f0ad4e;
+    background: linear-gradient(90deg, #fffaf0, white);
 }
 
-.card.neutral::before {
-    background: #f0ad4e;
-}
-
-.card.negative::before {
-    background: #dc3545;
+.card.negative {
+    border-left-color: #dc3545;
+    background: linear-gradient(90deg, #fff5f5, white);
 }
 
 .card h3 {
@@ -443,21 +406,10 @@ body {
 
 .panel {
     background: white;
-
-    border:
-        1px solid #dce5ee;
-
-    border-radius: 10px;
-
-    padding: 21px;
-
-    box-shadow:
-        0 2px 8px rgba(
-            0,
-            0,
-            0,
-            0.04
-        );
+    border: none;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
 }
 
 .panel.full {
@@ -495,23 +447,11 @@ body {
 
 .ai-report {
     background: white;
-
-    border:
-        1px solid #dce5ee;
-
-    border-radius: 10px;
-
-    padding: 25px;
-
-    box-shadow:
-        0 2px 8px rgba(
-            0,
-            0,
-            0,
-            0.04
-        );
-
-    margin-bottom: 20px;
+    border: none;
+    border-radius: 16px;
+    padding: 32px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.05);
+    margin-bottom: 24px;
 }
 
 .report-heading {
@@ -730,20 +670,12 @@ thead {
 }
 
 th {
-    color: #17324d;
-
-    font-size: 11px;
-
-    font-weight: 700;
-
+    color: var(--brand-primary);
+    font-size: 12px;
+    font-weight: 600;
     text-align: left;
-
-    padding:
-        11px 10px;
-
-    border-bottom:
-        1px solid #dce5ee;
-
+    padding: 14px 12px;
+    border-bottom: 1px solid #dce5ee;
     white-space: nowrap;
 }
 
@@ -881,4 +813,5 @@ tbody tr:hover {
         width: 100%;
     }
 }
+
 

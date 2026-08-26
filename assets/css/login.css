@@ -3,6 +3,8 @@
     --brand-primary-hover: #003666;
     --brand-secondary: #0b96d7;
     --brand-accent: #50af49;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
 }
 
 * {
@@ -13,7 +15,8 @@
 
         body {
             min-height: 100vh;
-            font-family: Arial, sans-serif;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
 
             background: url('../images/slt_bg.png') no-repeat center center fixed;
             background-size: cover;
@@ -24,17 +27,12 @@
         }
 
         .login-card {
-            width: 400px;
+            width: 420px;
             max-width: 92%;
-
             background: white;
-
-            padding: 40px;
-
-            border-radius: 16px;
-
-            box-shadow:
-                0 20px 50px rgba(0,0,0,0.2);
+            padding: 48px 40px;
+            border-radius: 24px;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
         }
 
         .logo {
@@ -87,15 +85,15 @@
 
             border: 1px solid #ccc;
 
-            border-radius: 8px;
-
+            border-radius: 10px;
             font-size: 15px;
-
             outline: none;
+            transition: all 0.2s ease;
         }
 
         input:focus {
             border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(0, 75, 135, 0.15);
         }
 
         #loginBtn {
@@ -105,21 +103,19 @@
 
             border: none;
 
-            border-radius: 8px;
-
+            border-radius: 10px;
             background: var(--brand-primary);
-
             color: white;
-
             font-size: 16px;
-
-            font-weight: bold;
-
+            font-weight: 600;
             cursor: pointer;
+            transition: all 0.2s ease;
         }
 
         #loginBtn:hover {
             background: var(--brand-primary-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
         }
 
         #loginBtn:disabled {
@@ -171,4 +167,5 @@
 
             color: #666;
         }
+
 

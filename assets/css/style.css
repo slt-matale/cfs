@@ -3,6 +3,8 @@
     --brand-primary-hover: #003666;
     --brand-secondary: #0b96d7;
     --brand-accent: #50af49;
+    --text-main: #1e293b;
+    --text-muted: #64748b;
 }
 
 * {
@@ -11,7 +13,8 @@
 
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Outfit', sans-serif;
+            color: var(--text-main);
             background: url('../images/slt_bg.png') no-repeat center center fixed;
             background-size: cover;
             display: flex;
@@ -25,8 +28,8 @@
             max-width: 95%;
             height: 650px;
             background: white;
-            border-radius: 20px;
-            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+            border-radius: 24px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
             display: flex;
             flex-direction: column;
             overflow: hidden;
@@ -88,23 +91,34 @@
         }
 
         .bot-message {
-            background: #eef2f6;
-            padding: 12px 15px;
-            border-radius: 15px;
+            background: #f0f7fc;
+            border: 1px solid #e1eefa;
+            color: var(--text-main);
+            padding: 14px 16px;
+            border-radius: 16px 16px 16px 4px;
             margin-bottom: 12px;
             max-width: 85%;
-            line-height: 1.4;
+            line-height: 1.5;
+            font-size: 14px;
+            animation: slideUp 0.3s ease-out;
         }
 
         .user-message {
             background: var(--brand-primary);
             color: white;
-            padding: 12px 15px;
-            border-radius: 15px;
+            padding: 14px 16px;
+            border-radius: 16px 16px 4px 16px;
             margin-bottom: 12px;
             margin-left: auto;
             max-width: 85%;
-            line-height: 1.4;
+            line-height: 1.5;
+            font-size: 14px;
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .options {
@@ -139,36 +153,42 @@
 
         .input-area {
             display: flex;
-            padding: 15px;
-            border-top: 1px solid #ddd;
-            gap: 10px;
+            padding: 18px;
+            border-top: 1px solid #edf2f7;
+            gap: 12px;
+            background: white;
         }
 
         .input-area input {
             flex: 1;
-            padding: 12px;
-            border: 1px solid #ccc;
-            border-radius: 10px;
+            padding: 14px 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
             outline: none;
             font-size: 15px;
+            transition: all 0.2s ease;
         }
 
         .input-area input:focus {
             border-color: var(--brand-primary);
+            box-shadow: 0 0 0 3px rgba(0, 75, 135, 0.15);
         }
 
         .send-button {
             background: var(--brand-primary);
             color: white;
             border: none;
-            padding: 0 18px;
-            border-radius: 10px;
+            padding: 0 20px;
+            border-radius: 12px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            transition: all 0.2s ease;
         }
 
         .send-button:hover {
             background: var(--brand-primary-hover);
+            transform: translateY(-1px);
         }
 
         .skip-button {
@@ -218,4 +238,5 @@
                 padding: 10px;
             }
         }
+
 
