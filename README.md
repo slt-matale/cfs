@@ -15,7 +15,7 @@ An AI-powered customer feedback collection and analytics platform built for **SL
 ### Admin Dashboard
 - Secure username/password login
 - KPI cards — total, positive, neutral, and negative feedback counts with percentages
-- Interactive **Chart.js** visualisations:
+- Interactive **Chart.js** visualisations, completely customized to match the brand color palette:
   - Sentiment distribution (doughnut)
   - Service usage (doughnut)
   - Waiting-time, staff, and office-environment ratings (bar)
@@ -23,6 +23,12 @@ An AI-powered customer feedback collection and analytics platform built for **SL
 - Full AI-generated summary report with key findings and recommendations
 - Scrollable feedback data table with all records
 - **One-click Word export** — download the AI summary report or raw feedback data as `.docx` files
+
+### Premium UI/UX Features
+- **Modern Typography:** Uses the sleek, geometric **Outfit** font for a high-end corporate feel.
+- **Glassmorphism & Depth:** Soft drop-shadows and frosted glass effects on login panels and dashboard cards.
+- **Micro-interactions:** Staggered entrance animations, responsive hover effects, and beautifully animated skeleton loaders while fetching data.
+- **Brand Cohesion:** Fully rebranded using official SLTMobitel colors across all CSS variables, buttons, and custom scrollbars.
 
 ### Backend API
 - RESTful endpoints built with **FastAPI**
@@ -62,7 +68,7 @@ An AI-powered customer feedback collection and analytics platform built for **SL
 
 | Layer        | Technology              | Hosting                  |
 | ------------ | ----------------------- | ------------------------ |
-| **Frontend** | HTML / CSS / JavaScript | GitHub Pages (free)      |
+| **Frontend** | HTML / CSS (Outfit font, Glassmorphism) / JavaScript | GitHub Pages (free)      |
 | **Backend**  | Python · FastAPI        | Render Free Web Service  |
 | **Database** | PostgreSQL              | Supabase (free tier)     |
 | **Charts**   | Chart.js (CDN)          | —                        |
@@ -263,7 +269,7 @@ curl -X POST https://your-api.onrender.com/feedback \
 
 | Category      | Technologies                                                      |
 | ------------- | ----------------------------------------------------------------- |
-| Frontend      | HTML5, CSS3, Vanilla JavaScript                                   |
+| Frontend      | HTML5, CSS3 (Custom Variables, Animations, Glassmorphism), Vanilla JavaScript |
 | Backend       | Python 3.11, FastAPI, Uvicorn                                     |
 | Database      | Supabase (PostgreSQL)                                             |
 | Charting      | Chart.js                                                          |
