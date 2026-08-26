@@ -1,4 +1,4 @@
-# 🤖 SLTMobitel Customer Feedback System
+# SLTMobitel Customer Feedback System
 
 An AI-powered customer feedback collection and analytics platform built for **SLTMobitel**. Customers interact with a chatbot-style interface to submit ratings and comments, while administrators access a rich analytics dashboard featuring sentiment analysis, visual charts, AI-generated summaries, and Word-document report exports.
 
