@@ -20,6 +20,70 @@ function requireLoginOrRedirect() {
     return true;
 }
 
+// Currently-selected date range. Empty strings mean "no filter" (all time).
+let currentStartDate = "";
+let currentEndDate = "";
+
+async function loadDateBounds() {
+
+    try {
+
+        const token = getAdminToken();
+
+        const response = await fetch(
+            API_URL + "/feedback-date-range",
+            {
+                headers: {
+                    "Authorization": "Bearer " + token
+                }
+            }
+        );
+
+        if (!response.ok) {
+            return;
+        }
+
+        const bounds = await response.json();
+
+        const startInput = document.getElementById("startDate");
+        const endInput = document.getElementById("endDate");
+
+        if (startInput && endInput) {
+
+            // The picker can't go earlier than the first feedback ever
+            // received, or later than today - there's no data outside
+            // that window either way.
+            startInput.min = bounds.earliest_date;
+            startInput.max = bounds.latest_date;
+            endInput.min = bounds.earliest_date;
+            endInput.max = bounds.latest_date;
+        }
+
+    } catch (err) {
+
+        console.log("Could not load date bounds:", err);
+
+    }
+
+}
+
+function updateDateFilterStatus() {
+
+    const status = document.getElementById("dateFilterStatus");
+
+    if (!status) {
+        return;
+    }
+
+    if (!currentStartDate && !currentEndDate) {
+        status.textContent = "Showing all-time data";
+    } else {
+        status.textContent =
+            "Showing " + currentStartDate + " to " + currentEndDate;
+    }
+
+}
+
 function safe(value) {
 
     if (
@@ -89,10 +153,23 @@ async function loadDashboard() {
             return;
         }
 
+        const params = new URLSearchParams();
+
+        if (currentStartDate) {
+            params.set("start_date", currentStartDate);
+        }
+
+        if (currentEndDate) {
+            params.set("end_date", currentEndDate);
+        }
+
+        const queryString = params.toString() ? "?" + params.toString() : "";
+
         const response =
             await fetch(
                 API_URL +
-                "/dashboard-data",
+                "/dashboard-data" +
+                queryString,
                 {
                     cache: "no-store",
                     headers: {
@@ -2311,6 +2388,60 @@ document.addEventListener("DOMContentLoaded", function () {
         );
 
     }
+
+
+    const applyBtn = document.getElementById("applyDateFilter");
+    const todayBtn = document.getElementById("filterToday");
+    const allTimeBtn = document.getElementById("filterAllTime");
+    const startInput = document.getElementById("startDate");
+    const endInput = document.getElementById("endDate");
+
+    if (applyBtn) {
+        applyBtn.addEventListener("click", () => {
+
+            currentStartDate = startInput.value || "";
+            currentEndDate = endInput.value || "";
+
+            updateDateFilterStatus();
+            loadDashboard();
+
+        });
+    }
+
+    if (todayBtn) {
+        todayBtn.addEventListener("click", () => {
+
+            const today = new Date().toISOString().slice(0, 10);
+
+            startInput.value = today;
+            endInput.value = today;
+
+            currentStartDate = today;
+            currentEndDate = today;
+
+            updateDateFilterStatus();
+            loadDashboard();
+
+        });
+    }
+
+    if (allTimeBtn) {
+        allTimeBtn.addEventListener("click", () => {
+
+            startInput.value = "";
+            endInput.value = "";
+
+            currentStartDate = "";
+            currentEndDate = "";
+
+            updateDateFilterStatus();
+            loadDashboard();
+
+        });
+    }
+
+    updateDateFilterStatus();
+    loadDateBounds();
 
 });
 

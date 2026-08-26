@@ -244,23 +244,77 @@ def test_supabase():
             detail=str(e)
         )
 
-def get_all_feedback():
+def get_all_feedback(start_date: str | None = None, end_date: str | None = None):
 
-    response = (
+    query = (
         supabase
         .table("customer_feedback")
         .select("*")
-        .execute()
     )
+
+    # created_at is stored as a timestamp, so "end_date" needs to include
+    # the whole day, not stop at midnight - otherwise feedback submitted
+    # later on the end date would be silently excluded.
+    if start_date:
+        query = query.gte("created_at", f"{start_date}T00:00:00")
+
+    if end_date:
+        query = query.lte("created_at", f"{end_date}T23:59:59")
+
+    response = query.execute()
 
     return response.data or []
 
-@app.get("/dashboard-data")
-def dashboard_data(_: None = Depends(require_admin)):
+
+@app.get("/feedback-date-range")
+def feedback_date_range(_: None = Depends(require_admin)):
+    """Returns the earliest and latest feedback dates available, so the
+    frontend can bound its date-range picker to real data instead of
+    letting the admin pick a range that has nothing in it."""
 
     try:
 
-        feedback = get_all_feedback()
+        earliest = (
+            supabase
+            .table("customer_feedback")
+            .select("created_at")
+            .order("created_at", desc=False)
+            .limit(1)
+            .execute()
+        )
+
+        earliest_date = None
+
+        if earliest.data:
+            earliest_date = str(earliest.data[0]["created_at"])[:10]
+
+        today = datetime.now().date().isoformat()
+
+        return {
+            "earliest_date": earliest_date or today,
+            "latest_date": today
+        }
+
+    except Exception as e:
+
+        print("DATE RANGE ERROR:", e)
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+
+
+@app.get("/dashboard-data")
+def dashboard_data(
+    start_date: str | None = None,
+    end_date: str | None = None,
+    _: None = Depends(require_admin)
+):
+
+    try:
+
+        feedback = get_all_feedback(start_date, end_date)
 
         total = len(feedback)
 
@@ -390,11 +444,15 @@ def dashboard_data(_: None = Depends(require_admin)):
         )
 
 @app.get("/ai-summary")
-def ai_summary(_: None = Depends(require_admin)):
+def ai_summary(
+    start_date: str | None = None,
+    end_date: str | None = None,
+    _: None = Depends(require_admin)
+):
 
     try:
 
-        feedback = get_all_feedback()
+        feedback = get_all_feedback(start_date, end_date)
 
         total = len(feedback)
 
@@ -722,11 +780,15 @@ def add_bullet(document, text):
     )
 
 @app.get("/download-ai-summary")
-def download_ai_summary(_: None = Depends(require_admin)):
+def download_ai_summary(
+    start_date: str | None = None,
+    end_date: str | None = None,
+    _: None = Depends(require_admin)
+):
 
     try:
 
-        data = ai_summary()
+        data = ai_summary(start_date, end_date, _)
 
         document = Document()
 
@@ -945,11 +1007,15 @@ def download_ai_summary(_: None = Depends(require_admin)):
 
 
 @app.get("/download-customer-feedback")
-def download_customer_feedback(_: None = Depends(require_admin)):
+def download_customer_feedback(
+    start_date: str | None = None,
+    end_date: str | None = None,
+    _: None = Depends(require_admin)
+):
 
     try:
 
-        feedback = get_all_feedback()
+        feedback = get_all_feedback(start_date, end_date)
 
         document = Document()
 

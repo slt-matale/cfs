@@ -72,6 +72,35 @@
 </div>
 
 
+<section class="date-filter-bar">
+
+    <div class="date-filter-field">
+        <label for="startDate">From</label>
+        <input type="date" id="startDate">
+    </div>
+
+    <div class="date-filter-field">
+        <label for="endDate">To</label>
+        <input type="date" id="endDate">
+    </div>
+
+    <button type="button" class="filter-btn" id="applyDateFilter">
+        Apply
+    </button>
+
+    <button type="button" class="filter-btn filter-btn-secondary" id="filterToday">
+        Today
+    </button>
+
+    <button type="button" class="filter-btn filter-btn-secondary" id="filterAllTime">
+        All time
+    </button>
+
+    <span id="dateFilterStatus" class="date-filter-status"></span>
+
+</section>
+
+
 <div id="errorMessage"></div>
 
 

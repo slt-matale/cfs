@@ -162,6 +162,78 @@ body {
 }
 
 
+.date-filter-bar {
+    display: flex;
+    align-items: flex-end;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: white;
+    border-radius: 10px;
+    padding: 16px 18px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.date-filter-field {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.date-filter-field label {
+    font-size: 12px;
+    font-weight: 600;
+    color: #555;
+}
+
+.date-filter-field input[type="date"] {
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 14px;
+}
+
+.filter-btn {
+    border: none;
+    padding: 9px 16px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+    background: #005baa;
+    color: white;
+}
+
+.filter-btn:hover {
+    background: #004785;
+}
+
+.filter-btn-secondary {
+    background: #eef3f8;
+    color: #005baa;
+}
+
+.filter-btn-secondary:hover {
+    background: #dde8f2;
+}
+
+.date-filter-status {
+    font-size: 13px;
+    color: #666;
+    margin-left: 4px;
+}
+
+@media (max-width: 600px) {
+
+    .date-filter-bar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+}
+
+
 .container {
     max-width: 1400px;
 
