@@ -13,6 +13,7 @@
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.umd.js"></script>
+<script src="https://unpkg.com/lucide@latest"></script>
 
 <link rel="stylesheet" href="../assets/css/dashboard.css">
 
@@ -25,7 +26,7 @@
     <div class="brand">
 
         <div class="logo">
-            SLT
+            <img src="../assets/images/slt_logo.png" alt="SLTMobitel Logo">
         </div>
 
         <div>
@@ -44,12 +45,12 @@
 
     <div class="header-actions">
 
-    <button type="button" class="refresh-btn" id="refreshBtn">
-        🔄 Refresh
+    <button type="button" class="refresh-btn btn" id="refreshBtn">
+        <i data-lucide="refresh-cw" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Refresh
     </button>
 
-    <button type="button" class="logout-btn" id="logoutBtn">
-        🚪 Logout
+    <button type="button" class="logout-btn btn logout" id="logoutBtn">
+        <i data-lucide="log-out" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Logout
     </button>
 
 </div>
@@ -125,7 +126,7 @@
             class="btn btn-primary"
             onclick="downloadAISummaryWord()">
 
-            📄 Download AI Summary Report
+            <i data-lucide="file-text" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Download AI Summary Report
 
         </button>
 
@@ -133,7 +134,7 @@
             class="btn btn-green"
             onclick="downloadFeedbackWord()">
 
-            🗄️ Download Customer Feedback Data
+            <i data-lucide="archive" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Download Customer Feedback Data
 
         </button>
 
@@ -369,7 +370,7 @@
     <div class="report-heading">
 
         <h2>
-            🤖 AI Customer Feedback Summary
+            <i data-lucide="bot" style="width:24px; height:24px; vertical-align:middle; margin-right:6px;"></i> AI Customer Feedback Summary
         </h2>
 
         <p>
@@ -475,7 +476,7 @@
     <div class="panel-header">
 
         <h2>
-            🗄️ Customer Feedback Data
+            <i data-lucide="database" style="width:24px; height:24px; vertical-align:middle; margin-right:6px;"></i> Customer Feedback Data
         </h2>
 
         <span id="recordCount">
@@ -548,6 +549,9 @@
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/dashboard.js"></script>
 
+<script>
+    lucide.createIcons();
+</script>
 </body>
 
 </html>

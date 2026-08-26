@@ -1,3 +1,10 @@
+:root {
+    --brand-primary: #004b87;
+    --brand-primary-hover: #003666;
+    --brand-secondary: #0b96d7;
+    --brand-accent: #50af49;
+}
+
 * {
             box-sizing: border-box;
         }
@@ -5,7 +12,8 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            background: #f3f5f7;
+            background: url('../images/slt_bg.png') no-repeat center center fixed;
+            background-size: cover;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -25,7 +33,7 @@
         }
 
         .header {
-            background: #005baa;
+            background: var(--brand-primary);
             color: white;
             padding: 22px;
             text-align: center;
@@ -89,7 +97,7 @@
         }
 
         .user-message {
-            background: #005baa;
+            background: var(--brand-primary);
             color: white;
             padding: 12px 15px;
             border-radius: 15px;
@@ -118,7 +126,7 @@
         }
 
         .option-button:hover {
-            background: #005baa;
+            background: var(--brand-primary);
             color: white;
         }
 
@@ -146,11 +154,11 @@
         }
 
         .input-area input:focus {
-            border-color: #005baa;
+            border-color: var(--brand-primary);
         }
 
         .send-button {
-            background: #005baa;
+            background: var(--brand-primary);
             color: white;
             border: none;
             padding: 0 18px;
@@ -160,7 +168,7 @@
         }
 
         .send-button:hover {
-            background: #004580;
+            background: var(--brand-primary-hover);
         }
 
         .skip-button {
@@ -174,7 +182,7 @@
         }
 
         .restart-button {
-            background: #005baa;
+            background: var(--brand-primary);
             color: white;
             border: none;
             padding: 12px 20px;
@@ -210,3 +218,4 @@
                 padding: 10px;
             }
         }
+

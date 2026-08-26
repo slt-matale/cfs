@@ -8,6 +8,7 @@
     <title>Admin Login | SLTMobitel</title>
 
     <link rel="stylesheet" href="../assets/css/login.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 
@@ -16,7 +17,7 @@
 <div class="login-card">
 
     <div class="logo">
-        SLT
+        <img src="../assets/images/slt_logo.png" alt="SLTMobitel Logo">
     </div>
 
     <h1>Admin Login</h1>
@@ -59,7 +60,7 @@
             type="submit"
             id="loginBtn">
 
-            🔐 Login
+            <i data-lucide="lock" style="width:16px; height:16px; vertical-align:middle; margin-right:5px;"></i> Login
 
         </button>
 
@@ -70,7 +71,7 @@
         href="../index.html"
         class="back">
 
-        ← Back to Customer Feedback
+        <i data-lucide="arrow-left" style="width:16px; height:16px; vertical-align:middle; margin-right:5px;"></i> Back to Customer Feedback
 
     </a>
 
@@ -80,5 +81,8 @@
 <script src="../assets/js/config.js"></script>
 <script src="../assets/js/login.js"></script>
 
+<script>
+    lucide.createIcons();
+</script>
 </body>
 </html>

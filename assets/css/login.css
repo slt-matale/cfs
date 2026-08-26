@@ -1,3 +1,10 @@
+:root {
+    --brand-primary: #004b87;
+    --brand-primary-hover: #003666;
+    --brand-secondary: #0b96d7;
+    --brand-accent: #50af49;
+}
+
 * {
             box-sizing: border-box;
             margin: 0;
@@ -8,11 +15,8 @@
             min-height: 100vh;
             font-family: Arial, sans-serif;
 
-            background: linear-gradient(
-                135deg,
-                #005baa,
-                #003b73
-            );
+            background: url('../images/slt_bg.png') no-repeat center center fixed;
+            background-size: cover;
 
             display: flex;
             align-items: center;
@@ -36,26 +40,25 @@
         .logo {
             width: 75px;
             height: 75px;
-
             margin: 0 auto 20px;
-
             border-radius: 50%;
-
-            background: #005baa;
-
-            color: white;
-
+            background: white;
             display: flex;
             align-items: center;
             justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
 
-            font-weight: bold;
-            font-size: 22px;
+        .logo img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
         }
 
         h1 {
             text-align: center;
-            color: #005baa;
+            color: var(--brand-primary);
             margin-bottom: 8px;
         }
 
@@ -92,7 +95,7 @@
         }
 
         input:focus {
-            border-color: #005baa;
+            border-color: var(--brand-primary);
         }
 
         #loginBtn {
@@ -104,7 +107,7 @@
 
             border-radius: 8px;
 
-            background: #005baa;
+            background: var(--brand-primary);
 
             color: white;
 
@@ -116,7 +119,7 @@
         }
 
         #loginBtn:hover {
-            background: #004785;
+            background: var(--brand-primary-hover);
         }
 
         #loginBtn:disabled {
@@ -146,7 +149,7 @@
 
             margin-top: 20px;
 
-            color: #005baa;
+            color: var(--brand-primary);
 
             text-decoration: none;
 
@@ -168,3 +171,4 @@
 
             color: #666;
         }
+

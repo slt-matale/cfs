@@ -10,6 +10,7 @@
     
 
     <link rel="stylesheet" href="assets/css/style.css">
+    <script src="https://unpkg.com/lucide@latest"></script>
 </head>
 
 <body>
@@ -17,10 +18,10 @@
 <div class="chat-container">
 
     <div class="header">
-        <h2>🤖 SLTMobitel</h2>
+        <h2><i data-lucide="bot" style="width:24px; height:24px; vertical-align:middle; margin-right:5px;"></i> SLTMobitel</h2>
         <p>Customer Feedback Assistant</p><br>
         <a href="pages/login.html" class="admin-login-btn">
-    🔐 Admin Login
+    <i data-lucide="lock" style="width:14px; height:14px; vertical-align:middle; margin-right:5px;"></i> Admin Login
 </a>
     </div>
 
@@ -48,5 +49,8 @@
 <script src="assets/js/config.js"></script>
 <script src="assets/js/script.js"></script>
 
+<script>
+    lucide.createIcons();
+</script>
 </body>
 </html>

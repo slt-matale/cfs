@@ -30,7 +30,7 @@ async function loadQuestions() {
         console.error(error);
 
         addBotMessage(
-            "❌ Cannot connect to the Python server."
+            '<i data-lucide="x-circle" style="width:16px; height:16px; vertical-align:middle; margin-right:4px; color:#dc3545;"></i> Cannot connect to the Python server.'
         );
 
         addBotMessage(
@@ -53,7 +53,7 @@ function startChat() {
     userInput.value = "";
 
     addBotMessage(
-        "👋 Hello! Welcome to SLTMobitel."
+        '<i data-lucide="hand" style="width:16px; height:16px; vertical-align:middle; margin-right:4px;"></i> Hello! Welcome to SLTMobitel.'
     );
 
     addBotMessage(
@@ -253,7 +253,7 @@ function sendAnswer() {
         if (!/^\d{10}$/.test(phone)) {
 
             addBotMessage(
-                "⚠️ Please enter a valid 10-digit phone number."
+                '<i data-lucide="alert-triangle" style="width:16px; height:16px; vertical-align:middle; margin-right:4px; color:#f0ad4e;"></i> Please enter a valid 10-digit phone number.'
             );
 
             return;
@@ -304,13 +304,17 @@ function addBotMessage(message) {
     div.className =
         "bot-message";
 
-    div.textContent =
+    div.innerHTML =
         message;
 
     chatBox.appendChild(div);
 
     chatBox.scrollTop =
         chatBox.scrollHeight;
+
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 }
 
 
@@ -322,13 +326,17 @@ function addUserMessage(message) {
     div.className =
         "user-message";
 
-    div.textContent =
+    div.innerHTML =
         message;
 
     chatBox.appendChild(div);
 
     chatBox.scrollTop =
         chatBox.scrollHeight;
+
+    if (window.lucide) {
+        lucide.createIcons();
+    }
 }
 
 async function finishChat() {
@@ -337,7 +345,7 @@ async function finishChat() {
 
 
     addBotMessage(
-        "⏳ Saving your feedback..."
+        '<i data-lucide="loader" style="width:16px; height:16px; vertical-align:middle; margin-right:4px;"></i> Saving your feedback...'
     );
 
 
@@ -420,18 +428,18 @@ async function finishChat() {
 
 
         addBotMessage(
-            "✅ Thank you for your feedback!"
+            '<i data-lucide="check-circle-2" style="width:16px; height:16px; vertical-align:middle; margin-right:4px; color:#198754;"></i> Thank you for your feedback!'
         );
 
         addBotMessage(
-            "Your feedback has been successfully recorded. ❤️"
+            'Your feedback has been successfully recorded. <i data-lucide="heart" style="width:16px; height:16px; vertical-align:middle; margin-left:4px; color:#dc3545; fill:#dc3545;"></i>'
         );
 
 
         setTimeout(() => {
 
             addBotMessage(
-                "🔄 Starting a new feedback session..."
+                '<i data-lucide="refresh-cw" style="width:16px; height:16px; vertical-align:middle; margin-right:4px;"></i> Starting a new feedback session...'
             );
 
         }, 1500);
@@ -457,7 +465,7 @@ async function finishChat() {
 
 
         addBotMessage(
-            "❌ Sorry, your feedback could not be saved."
+            '<i data-lucide="x-circle" style="width:16px; height:16px; vertical-align:middle; margin-right:4px; color:#dc3545;"></i> Sorry, your feedback could not be saved.'
         );
 
         addBotMessage(
