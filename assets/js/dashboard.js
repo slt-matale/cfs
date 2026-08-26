@@ -5,6 +5,21 @@ let dashboardData = {};
 
 let charts = {};
 
+// The dashboard must not show anything until we've confirmed a valid
+// admin session exists. Anyone opening this page directly without
+// logging in gets bounced straight back to the login page.
+function getAdminToken() {
+    return sessionStorage.getItem("adminToken");
+}
+
+function requireLoginOrRedirect() {
+    if (!getAdminToken()) {
+        window.location.replace("login.html");
+        return false;
+    }
+    return true;
+}
+
 function safe(value) {
 
     if (
@@ -67,15 +82,36 @@ async function loadDashboard() {
 
     try {
 
+        const token = getAdminToken();
+
+        if (!token) {
+            window.location.replace("login.html");
+            return;
+        }
+
         const response =
             await fetch(
                 API_URL +
                 "/dashboard-data",
                 {
-                    cache: "no-store"
+                    cache: "no-store",
+                    headers: {
+                        "Authorization": "Bearer " + token
+                    }
                 }
             );
 
+
+        if (response.status === 401) {
+
+            // Token is missing, wrong, or the backend restarted (which
+            // invalidates all previous tokens) - send them back to log
+            // in again rather than showing a confusing error.
+            sessionStorage.removeItem("adminToken");
+            window.location.replace("login.html");
+            return;
+
+        }
 
         if (!response.ok) {
 
@@ -2242,8 +2278,9 @@ function logout() {
 
     localStorage.removeItem("adminLoggedIn");
     sessionStorage.removeItem("adminLoggedIn");
+    sessionStorage.removeItem("adminToken");
 
-    window.location.replace("../frontend/index.html");
+    window.location.replace("../index.html");
 }
 
 
@@ -2281,6 +2318,10 @@ document.addEventListener("DOMContentLoaded", function () {
 document.addEventListener(
     "DOMContentLoaded",
     () => {
+
+        if (!requireLoginOrRedirect()) {
+            return;
+        }
 
         loadDashboard();
 

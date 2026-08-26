@@ -7,7 +7,7 @@ const loginForm =
 
 loginForm.addEventListener(
     "submit",
-    function(event) {
+    async function(event) {
 
         event.preventDefault();
 
@@ -41,54 +41,55 @@ loginForm.addEventListener(
 
         error.style.display = "none";
 
+        button.disabled = true;
+        const originalLabel = button.innerHTML;
+        button.innerHTML = "⏳ Signing in...";
 
-        if (
-            username === "admin" &&
-            password === "admin123"
-        ) {
+        try {
 
-            console.log(
-                "LOGIN SUCCESS"
+            // The backend is the only thing that decides whether these
+            // credentials are correct - nothing is checked here in the
+            // browser. On success it hands back a one-time token that
+            // has to be sent along with every admin request afterward.
+            const response = await fetch(
+                API_BASE_URL + "/login",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ username, password })
+                }
             );
 
+            if (!response.ok) {
+                throw new Error("Invalid username or password.");
+            }
 
+            const data = await response.json();
 
-            localStorage.setItem(
-                "adminLoggedIn",
-                "true"
-            );
+            console.log("LOGIN SUCCESS");
 
+            // sessionStorage clears itself when the tab closes, which is
+            // safer for an admin session than localStorage (which would
+            // otherwise persist indefinitely on a shared computer).
+            sessionStorage.setItem("adminToken", data.token);
 
-            sessionStorage.setItem(
-                "adminLoggedIn",
-                "true"
-            );
+            button.innerHTML = "⏳ Opening Dashboard...";
 
+            window.location.href = "dashboard.html";
 
-            button.disabled = true;
+        } catch (err) {
 
-            button.innerHTML =
-                "⏳ Opening Dashboard...";
-
-
-
-            window.location.href =
-                "dashboard.html";
-
-
-        } else {
-
-            console.log(
-                "LOGIN FAILED"
-            );
-
+            console.log("LOGIN FAILED", err);
 
             error.innerHTML =
                 "❌ Invalid username or password.";
 
-            error.style.display =
-                "block";
+            error.style.display = "block";
 
+            button.disabled = false;
+            button.innerHTML = originalLabel;
         }
 
     }

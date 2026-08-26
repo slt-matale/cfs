@@ -1,6 +1,7 @@
 import os
+import secrets
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException, Header, Depends
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
@@ -54,6 +55,26 @@ class LoginRequest(BaseModel):
 ADMIN_USERNAME = os.environ.get("ADMIN_USERNAME", "admin")
 ADMIN_PASSWORD = os.environ.get("ADMIN_PASSWORD", "admin123")
 
+# A fresh random token is generated each time the server starts. The
+# frontend receives it on successful login and must send it back as
+# "Authorization: Bearer <token>" on every protected request below.
+# This means the hardcoded admin/admin123 check in the old client-side
+# JS can no longer grant access on its own - the backend is now the
+# only thing that decides who's logged in.
+ADMIN_TOKEN = secrets.token_urlsafe(32)
+
+
+def require_admin(authorization: str | None = Header(default=None)):
+    """Dependency that protects admin-only endpoints with a bearer token."""
+
+    if not authorization or not authorization.startswith("Bearer "):
+        raise HTTPException(status_code=401, detail="Not authenticated")
+
+    token = authorization.removeprefix("Bearer ").strip()
+
+    if not secrets.compare_digest(token, ADMIN_TOKEN):
+        raise HTTPException(status_code=401, detail="Invalid or expired session")
+
 
 @app.post("/login")
 def login(data: LoginRequest):
@@ -63,7 +84,8 @@ def login(data: LoginRequest):
 
         return {
             "success": True,
-            "message": "Login successful"
+            "message": "Login successful",
+            "token": ADMIN_TOKEN
         }
 
     raise HTTPException(
@@ -234,7 +256,7 @@ def get_all_feedback():
     return response.data or []
 
 @app.get("/dashboard-data")
-def dashboard_data():
+def dashboard_data(_: None = Depends(require_admin)):
 
     try:
 
@@ -368,7 +390,7 @@ def dashboard_data():
         )
 
 @app.get("/ai-summary")
-def ai_summary():
+def ai_summary(_: None = Depends(require_admin)):
 
     try:
 
@@ -700,7 +722,7 @@ def add_bullet(document, text):
     )
 
 @app.get("/download-ai-summary")
-def download_ai_summary():
+def download_ai_summary(_: None = Depends(require_admin)):
 
     try:
 
@@ -923,7 +945,7 @@ def download_ai_summary():
 
 
 @app.get("/download-customer-feedback")
-def download_customer_feedback():
+def download_customer_feedback(_: None = Depends(require_admin)):
 
     try:
 
