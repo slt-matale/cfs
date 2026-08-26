@@ -73,7 +73,7 @@ loginForm.addEventListener(
 
 
             window.location.href =
-                "../dashboard/dashboard.html";
+                "dashboard.html";
 
 
         } else {
