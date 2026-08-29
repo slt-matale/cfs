@@ -8,6 +8,7 @@ from pydantic import BaseModel
 
 from backend.database import supabase
 from backend.chatbot import questions
+from backend.gemini_client import generate_improvement, generate_negative_summary
 
 from collections import Counter
 from datetime import datetime, timedelta
@@ -244,7 +245,11 @@ def test_supabase():
             detail=str(e)
         )
 
-def get_all_feedback(start_date: str | None = None, end_date: str | None = None):
+def get_all_feedback(
+    start_date: str | None = None,
+    end_date: str | None = None,
+    sentiment: str | None = None
+):
 
     query = (
         supabase
@@ -260,6 +265,9 @@ def get_all_feedback(start_date: str | None = None, end_date: str | None = None)
 
     if end_date:
         query = query.lte("created_at", f"{end_date}T23:59:59")
+
+    if sentiment:
+        query = query.eq("sentiment", sentiment)
 
     response = query.execute()
 
@@ -301,6 +309,125 @@ def feedback_date_range(_: None = Depends(require_admin)):
 
         raise HTTPException(
             status_code=500,
+            detail=str(e)
+        )
+
+
+@app.get("/negative-feedback")
+def negative_feedback(
+    start_date: str | None = None,
+    end_date: str | None = None,
+    _: None = Depends(require_admin)
+):
+    """All negative-sentiment feedback in the given range, newest first."""
+
+    try:
+
+        feedback = get_all_feedback(
+            start_date,
+            end_date,
+            sentiment="Negative"
+        )
+
+        feedback.sort(
+            key=lambda item: item.get("created_at") or "",
+            reverse=True
+        )
+
+        return {
+            "count": len(feedback),
+            "feedback": feedback
+        }
+
+    except Exception as e:
+
+        print("NEGATIVE FEEDBACK ERROR:", e)
+
+        raise HTTPException(
+            status_code=500,
+            detail=str(e)
+        )
+
+
+class ImproveRequest(BaseModel):
+
+    service: str | None = None
+    phone: str | None = None
+    waiting: str | None = None
+    staff: str | None = None
+    office: str | None = None
+    parking: str | None = None
+    comment: str | None = None
+
+
+@app.post("/negative-feedback/improve")
+def improve_feedback(
+    data: ImproveRequest,
+    _: None = Depends(require_admin)
+):
+    """AI-generated improvement suggestion for one specific negative
+    feedback entry - called on demand as the admin browses the list,
+    not pre-generated in bulk."""
+
+    try:
+
+        suggestion = generate_improvement(data.model_dump())
+
+        return {"suggestion": suggestion}
+
+    except Exception as e:
+
+        print("GEMINI IMPROVE ERROR:", e)
+
+        raise HTTPException(
+            status_code=502,
+            detail=str(e)
+        )
+
+
+@app.get("/negative-feedback/summary")
+def negative_feedback_summary(
+    start_date: str | None = None,
+    end_date: str | None = None,
+    _: None = Depends(require_admin)
+):
+    """One AI-generated overview of the main complaint themes and top
+    recommended improvements across all negative feedback in range."""
+
+    try:
+
+        feedback = get_all_feedback(
+            start_date,
+            end_date,
+            sentiment="Negative"
+        )
+
+        if not feedback:
+
+            return {
+                "summary": (
+                    "No negative feedback found for the selected period."
+                ),
+                "count": 0
+            }
+
+        summary = generate_negative_summary(feedback)
+
+        return {
+            "summary": summary,
+            "count": len(feedback)
+        }
+
+    except HTTPException:
+
+        raise
+
+    except Exception as e:
+
+        print("GEMINI SUMMARY ERROR:", e)
+
+        raise HTTPException(
+            status_code=502,
             detail=str(e)
         )
 
