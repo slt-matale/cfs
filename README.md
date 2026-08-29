@@ -283,11 +283,15 @@ curl -X POST https://your-api.onrender.com/feedback \
 ## 🔧 Environment Variables
 
 | Variable         | Required | Default     | Description                   |
-| ---------------- | -------- | ----------- | ----------------------------- |
+| ---------------- | -------- | ----------- | ------------------------------ |
 | `SUPABASE_URL`   | ✅       | —           | Supabase project URL          |
 | `SUPABASE_KEY`   | ✅       | —           | Supabase anon/public API key  |
 | `ADMIN_USERNAME` | ❌       | `admin`     | Dashboard login username      |
 | `ADMIN_PASSWORD` | ❌       | `admin123`  | Dashboard login password      |
+| `GEMINI_API_KEY` | ✅*      | —           | Google Gemini API key (for Negative Feedback Review's AI suggestions/summary) - get one free at https://aistudio.google.com/apikey |
+| `GEMINI_MODEL`   | ❌       | `gemini-2.5-flash` | Which Gemini model to use - override if Google retires the default |
+
+\* Required only for the Negative Feedback Review page. The rest of the app works fine without it.
 
 ---
 

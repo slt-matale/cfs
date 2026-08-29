@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>SLTMobitel | Negative Feedback Review</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+
+<link rel="stylesheet" href="../assets/css/dashboard.css">
+<link rel="stylesheet" href="../assets/css/negative.css">
+
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="brand">
+
+        <div class="logo">
+            <img src="../assets/images/slt_logo.png" alt="SLTMobitel Logo">
+        </div>
+
+        <div>
+
+            <h1>
+                Negative Feedback Review
+            </h1>
+
+            <p>
+                SLTMobitel | AI-assisted improvement suggestions
+            </p>
+
+        </div>
+
+    </div>
+
+    <div class="header-actions">
+
+        <a href="dashboard.html" class="btn btn-light">
+            <i data-lucide="arrow-left" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Back to Dashboard
+        </a>
+
+        <button type="button" class="logout-btn btn logout" id="logoutBtn">
+            <i data-lucide="log-out" style="width:14px; height:14px; vertical-align:middle; margin-right:4px;"></i> Logout
+        </button>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+<div class="page-title">
+
+    <h2>
+        Negative Feedback Review
+    </h2>
+
+    <p>
+        Browse negative feedback and get AI-suggested improvements, one at a time.
+    </p>
+
+</div>
+
+
+<section class="date-filter-bar">
+
+    <div class="date-filter-field">
+        <label for="startDate">From</label>
+        <input type="date" id="startDate">
+    </div>
+
+    <div class="date-filter-field">
+        <label for="endDate">To</label>
+        <input type="date" id="endDate">
+    </div>
+
+    <button type="button" class="filter-btn" id="applyDateFilter">
+        Apply
+    </button>
+
+    <button type="button" class="filter-btn filter-btn-secondary" id="filterToday">
+        Today
+    </button>
+
+    <button type="button" class="filter-btn filter-btn-secondary" id="filterAllTime">
+        All time
+    </button>
+
+    <span id="dateFilterStatus" class="date-filter-status"></span>
+
+</section>
+
+
+<div id="errorMessage"></div>
+
+
+<section class="neg-summary-card">
+
+    <div class="neg-summary-header">
+
+        <h3>
+            <i data-lucide="sparkles" style="width:16px; height:16px; vertical-align:middle; margin-right:6px;"></i>
+            Overall AI Summary
+        </h3>
+
+        <button type="button" class="btn btn-primary" id="generateSummaryBtn">
+            Generate Summary
+        </button>
+
+    </div>
+
+    <div id="summaryContent" class="neg-summary-content">
+        <p class="neg-empty-hint">
+            Click "Generate Summary" to get an AI overview of the main
+            complaint themes and top recommendations for the selected period.
+        </p>
+    </div>
+
+</section>
+
+
+<section class="neg-review-layout">
+
+    <div class="neg-list-panel">
+
+        <div class="neg-list-header">
+            <h3>Negative Feedback</h3>
+            <span id="negCount" class="neg-count-badge">0</span>
+        </div>
+
+        <div id="negativeList" class="neg-list">
+            <p class="neg-empty-hint">Loading...</p>
+        </div>
+
+    </div>
+
+    <div class="neg-suggestion-panel">
+
+        <div class="neg-list-header">
+            <h3>
+                <i data-lucide="lightbulb" style="width:16px; height:16px; vertical-align:middle; margin-right:6px;"></i>
+                Suggested Improvement
+            </h3>
+        </div>
+
+        <div id="suggestionContent" class="neg-suggestion-content">
+            <p class="neg-empty-hint">
+                Select a feedback entry on the left to see an AI-suggested
+                improvement for it.
+            </p>
+        </div>
+
+    </div>
+
+</section>
+
+
+<div class="footer">
+
+    SLTMobitel AI Customer Feedback Analytics System
+
+</div>
+
+</main>
+
+
+<script src="../assets/js/config.js"></script>
+<script src="../assets/js/negative-feedback.js"></script>
+
+<script>
+    lucide.createIcons();
+</script>
+</body>
+
+</html>

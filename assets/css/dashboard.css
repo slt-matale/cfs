@@ -146,6 +146,20 @@ body {
     box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
+.btn-warning {
+    background: #d97706;
+    color: white;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+}
+
+.btn-warning:hover {
+    background: #b45309;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
 .btn-light {
     background: #eef4fa;
 
